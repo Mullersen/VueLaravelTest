@@ -18,9 +18,9 @@
                 let compData = this; // this changes the scope inside the following function. it makes sure we are referring to the vue oject, not the readystatechange
                 ajax.onreadystatechange = function(){
                     if(ajax.status == 200 && ajax.readyState == 4){
-                        let jsonData = JSON.parse(this.responseText);
+                        let jsonData = JSON.parse(JSON.parse(this.responseText));
                         //console.log(this.responseText);
-                        compData.users.push(JSON.parse(jsonData)); //reference to the vue object and its users array will become/change the data we are getting back from the ajax request to our db.
+                        compData.users.splice(0, jsonData.length, jsonData); //reference to the vue object and its users array will become/change the data we are getting back from the ajax request to our db.
                         console.log(compData.users);
                     } // the json that is being sent back above in jsonData, is already an array. and we are looping through that above in template.
                 };
